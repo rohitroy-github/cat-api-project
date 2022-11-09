@@ -9,8 +9,9 @@ import {
   Box,
   Spacer,
 } from "@chakra-ui/react";
-import {FcMenu, FcHome, FcAbout} from "react-icons/fc";
-import {BsSearch} from "react-icons/bs";
+import {FcMenu, FcHome} from "react-icons/fc";
+// import {IoLogoOctocat} from "react-icons/io";
+// import {BsSearch} from "react-icons/bs";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -42,9 +43,9 @@ const Navbar = () => (
           <Link href="/" passHref>
             <MenuItem icon={<FcHome />}>Home</MenuItem>
           </Link>
-          <Link href="/search" passHref>
+          {/* <Link href="/search" passHref>
             <MenuItem icon={<BsSearch />}>Search Cats</MenuItem>
-          </Link>
+          </Link> */}
         </MenuList>
       </Menu>
     </Box>
