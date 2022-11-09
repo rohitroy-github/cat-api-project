@@ -1,23 +1,25 @@
-// main index file
+// changed view order file
+
+import Link from "next/link";
 
 import {useState} from "react";
 
-import {Box, Button, Grid, GridItem, Link, Stack} from "@chakra-ui/react";
+import {Box, Button, Grid, GridItem, Stack} from "@chakra-ui/react";
 
-import {baseURL, fetchAPI} from "../utils/fetchAPI";
+import {baseURL, fetchAPI} from "../../utils/fetchAPI";
 
-import Cat from "../components/Cat.jsx";
+import Cat from "../../components/Cat";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Home = ({fetchedCats}) => {
+const Home = ({fetchedCats, viewOrder}) => {
   // useState for recording changes in fetched data
   const [posts, setPosts] = useState(fetchedCats);
 
   // function to load 15 more images
   const loadMore = async () => {
     const fetchedCats = await fetchAPI(
-      `${baseURL}/images/search?limit=15&has_breeds=1&&_start=15`
+      `${baseURL}/images/search?limit=5&order=${viewOrder}&has_breeds=1&&_start=5`
     );
 
     setPosts((value) => [...value, ...posts]);
@@ -28,10 +30,6 @@ const Home = ({fetchedCats}) => {
       },
     };
   };
-
-  // variables for passing order parameters
-  const ASC = "ASC";
-  const DESC = "DESC";
 
   return (
     <>
@@ -45,28 +43,26 @@ const Home = ({fetchedCats}) => {
         fontWeight="600"
         fontSize="18px"
       >
-        Let's Look Up At Some Random Cat Images
+        Cat Images Arranged in {viewOrder}ENDING Order ...
       </Box>
 
-      {/* buttons for changing order of image view */}
       <Box
         textAlign="center"
         paddingBottom="5"
         fontFamily="Montserrat"
         fontStyle="sans-serif"
         fontWeight="600"
-        fontSize="16px"
+        fontSize="15px"
       >
-        Select order of view according to date uploaded ...
         <Stack
-          paddingTop="2"
+          paddingTop="5px"
           direction="row"
           spacing={4}
           align="center"
           justifyContent="center"
           textAlign="center"
         >
-          <Link href={`/order/${ASC}`} passHref>
+          <Link href={"/"}>
             <Button
               size="sm"
               colorScheme="black"
@@ -75,20 +71,7 @@ const Home = ({fetchedCats}) => {
               fontFamily="Montserrat"
               fontStyle="sans-serif"
             >
-              Ascending
-            </Button>
-          </Link>
-
-          <Link href={`/order/${DESC}`} passHref>
-            <Button
-              size="sm"
-              colorScheme="black"
-              variant="outline"
-              textAlign="center"
-              fontFamily="Montserrat"
-              fontStyle="sans-serif"
-            >
-              Descending
+              Back To Random Order
             </Button>
           </Link>
         </Stack>
@@ -109,7 +92,6 @@ const Home = ({fetchedCats}) => {
         ))}
       </Grid>
       <Box textAlign="center" paddingBottom="5">
-        {/* button for loading 15 more images */}
         <Button
           colorScheme="black"
           variant="outline"
@@ -127,15 +109,17 @@ const Home = ({fetchedCats}) => {
 
 export default Home;
 
-export async function getStaticProps() {
-  // fetching cats from API which are having breeds category
-  const fetchedCats = await fetchAPI(
-    `${baseURL}/images/search?limit=15&has_breeds=1`
+export async function getServerSideProps({params: {viewOrder}}) {
+  console.log(
+    `${baseURL}/images/search?limit=5&order=${viewOrder}&has_breeds=1`
   );
-
+  const fetchedCats = await fetchAPI(
+    `${baseURL}/images/search?limit=5&order=${viewOrder}&has_breeds=1`
+  );
   return {
     props: {
       fetchedCats,
+      viewOrder,
     },
   };
 }
