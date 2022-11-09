@@ -19,7 +19,7 @@ const Home = ({fetchedCats, viewOrder}) => {
   // function to load 15 more images
   const loadMore = async () => {
     const fetchedCats = await fetchAPI(
-      `${baseURL}/images/search?limit=5&order=${viewOrder}&has_breeds=1&&_start=5`
+      `${baseURL}/images/search?limit=15&order=${viewOrder}&has_breeds=1&&_start=15`
     );
 
     setPosts((value) => [...value, ...posts]);
@@ -110,11 +110,12 @@ const Home = ({fetchedCats, viewOrder}) => {
 export default Home;
 
 export async function getServerSideProps({params: {viewOrder}}) {
-  console.log(
-    `${baseURL}/images/search?limit=5&order=${viewOrder}&has_breeds=1`
-  );
+  // checking
+  // console.log(
+  //   `${baseURL}/images/search?limit=15&order=${viewOrder}&has_breeds=1`
+  // );
   const fetchedCats = await fetchAPI(
-    `${baseURL}/images/search?limit=5&order=${viewOrder}&has_breeds=1`
+    `${baseURL}/images/search?limit=15&order=${viewOrder}&has_breeds=1`
   );
   return {
     props: {
