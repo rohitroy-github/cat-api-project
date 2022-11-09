@@ -46,7 +46,7 @@ const Home = ({fetchedCats}) => {
         templateColumns="repeat(3, 1fr)"
         gap={10}
         overflow="hidden"
-        paddingBottom="25px"
+        paddingBottom="5"
       >
         {" "}
         {fetchedCats.map((cat) => (

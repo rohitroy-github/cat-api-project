@@ -10,8 +10,9 @@ const Footer = () => (
     fontStyle="sans-serif"
     fontWeight="600"
     fontSize="18px"
+    bottom="0"
   >
-    © 2022 | Rohit Roy | Cat-Api-Project
+    <center>© 2022 | Rohit Roy | Cat-Api-Project</center>
   </Box>
 );
 

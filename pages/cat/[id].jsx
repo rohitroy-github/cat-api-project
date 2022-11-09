@@ -1,6 +1,6 @@
 // code for individual image details page ]
 
-import {Link, Text} from "@chakra-ui/react";
+import {Link, Text, Box} from "@chakra-ui/react";
 import {baseURL, fetchAPI} from "../../utils/fetchAPI";
 
 const CatDetails = ({
@@ -13,9 +13,16 @@ const CatDetails = ({
   return (
     <>
       <div className="container cat-details-container">
-        <div className="info-heading">
-          <p> Showing details of {name ? name : <Text>Undefined !</Text>}</p>
-        </div>
+        <Box
+          textAlign="center"
+          fontFamily="Montserrat"
+          fontStyle="sans-serif"
+          fontWeight="600"
+          fontSize="18px"
+          paddingBottom="5"
+        >
+          Showing details for a {name} breed cat !
+        </Box>
         <div className="details-image">
           <center>
             <img src={url ? url : DefaultImage} width={400} height={260} />
