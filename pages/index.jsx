@@ -1,13 +1,8 @@
 // main index file
 
-import {useState, useEffect} from "react";
+import {useState} from "react";
 
-// importing paginition files
-import Pagination from "../components/Paginition";
-import {paginate} from "../utils/paginate";
-
-import {Flex, Box} from "@chakra-ui/react";
-import {Grid, GridItem} from "@chakra-ui/react";
+import {Box, Button, Grid, GridItem} from "@chakra-ui/react";
 
 import {baseURL, fetchAPI} from "../utils/fetchAPI";
 
@@ -16,16 +11,22 @@ import Cat from "../components/Cat.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Home = ({fetchedCats}) => {
-  const [posts, setPosts] = useState([]);
-  const pageSize = 15;
-  const [currentPage, setCurrentPage] = useState(1);
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  const [posts, setPosts] = useState(fetchedCats);
+
+  // function to load 15 more images
+  const loadMore = async () => {
+    const fetchedCats = await fetchAPI(
+      `${baseURL}/images/search?limit=15&has_breeds=1&&_start=15`
+    );
+
+    setPosts((value) => [...value, ...posts]);
+
+    return {
+      props: {
+        fetchedCats,
+      },
+    };
   };
-
-  const paginatePosts = paginate(posts, currentPage, pageSize);
-
-  // setPosts(fetchedCats);
 
   return (
     <>
@@ -49,31 +50,30 @@ const Home = ({fetchedCats}) => {
         paddingBottom="5"
       >
         {" "}
-        {fetchedCats.map((cat) => (
+        {posts.map((cat) => (
           <GridItem w="100%">
             <Cat cat={cat} key={cat.id} />
           </GridItem>
         ))}
       </Grid>
+      <Box textAlign="center" paddingBottom="5">
+        {/* button for loading 15 more images */}
+        <Button
+          colorScheme="black"
+          variant="outline"
+          textAlign="center"
+          onClick={loadMore}
+          fontFamily="Montserrat"
+          fontStyle="sans-serif"
+        >
+          Load More
+        </Button>{" "}
+      </Box>
     </>
   );
 };
 
 export default Home;
-
-// export async function getStaticProps() {
-//   // fetching cats from API which are having breeds category
-//   const fetchedCats = await fetchAPI(
-//     `${baseURL}/images/search?limit=10&has_breeds=1`
-//   );
-
-//   return {
-//     props: {
-//       // fetchedCats: fetchedCat?.hits,
-//       fetchedCats,
-//     },
-//   };
-// }
 
 export async function getStaticProps() {
   // fetching cats from API which are having breeds category
@@ -83,15 +83,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      // fetchedCats: fetchedCat?.hits,
       fetchedCats,
     },
   };
 }
-
-// <Pagination
-//   items={posts.length}
-//   pageSize={pageSize}
-//   currentPage={currentPage}
-//   onPageChange={handlePageChange}
-// />
