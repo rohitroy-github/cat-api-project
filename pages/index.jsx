@@ -1,6 +1,13 @@
 // main index file
 
+import {useState, useEffect} from "react";
+
+// importing paginition files
+import Pagination from "../components/Paginition";
+import {paginate} from "../utils/paginate";
+
 import {Flex, Box} from "@chakra-ui/react";
+import {Grid, GridItem} from "@chakra-ui/react";
 
 import {baseURL, fetchAPI} from "../utils/fetchAPI";
 
@@ -9,6 +16,17 @@ import Cat from "../components/Cat.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Home = ({fetchedCats}) => {
+  const [posts, setPosts] = useState([]);
+  const pageSize = 15;
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const paginatePosts = paginate(posts, currentPage, pageSize);
+
+  // setPosts(fetchedCats);
+
   return (
     <>
       <Box
@@ -23,23 +41,44 @@ const Home = ({fetchedCats}) => {
       >
         Let's Look Up At Some Cats
       </Box>
-
-      <Flex flexWrap="wrap">
-        {/* mapping over the fetched cats list  */}
+      <Grid
+        h="100%"
+        templateColumns="repeat(3, 1fr)"
+        gap={10}
+        overflow="hidden"
+        paddingBottom="25px"
+      >
+        {" "}
         {fetchedCats.map((cat) => (
-          <Cat cat={cat} key={cat.id} />
+          <GridItem w="100%">
+            <Cat cat={cat} key={cat.id} />
+          </GridItem>
         ))}
-      </Flex>
+      </Grid>
     </>
   );
 };
 
 export default Home;
 
+// export async function getStaticProps() {
+//   // fetching cats from API which are having breeds category
+//   const fetchedCats = await fetchAPI(
+//     `${baseURL}/images/search?limit=10&has_breeds=1`
+//   );
+
+//   return {
+//     props: {
+//       // fetchedCats: fetchedCat?.hits,
+//       fetchedCats,
+//     },
+//   };
+// }
+
 export async function getStaticProps() {
   // fetching cats from API which are having breeds category
   const fetchedCats = await fetchAPI(
-    `${baseURL}/images/search?limit=10&has_breeds=1`
+    `${baseURL}/images/search?limit=15&has_breeds=1`
   );
 
   return {
@@ -49,3 +88,10 @@ export async function getStaticProps() {
     },
   };
 }
+
+// <Pagination
+//   items={posts.length}
+//   pageSize={pageSize}
+//   currentPage={currentPage}
+//   onPageChange={handlePageChange}
+// />
