@@ -13,7 +13,9 @@ Run on <b>Localhost</b> ?
 <br />
 <br />
 <b>npm init</b>
+<br />
 <b>npm install</b>
+<br />
 <b>npm start</b>
 <br />
 <br />
