@@ -9,6 +9,18 @@ API used in this project is <b><a href="https://thecatapi.com/">Cat API</a></b> 
 These are some <b>screenshots</b> from the project >>> 
 <br />
 <br />
+Screenshot (186).png
+<br />
+<br />
+Screenshot (187).png
+<br />
+<br />
+Screenshot (189).png
+<br />
+<br />
+Screenshot (190).png
+<br />
+<br />
 Run on <b>Localhost</b> ? 
 <br />
 <br />
