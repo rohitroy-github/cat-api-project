@@ -22,13 +22,8 @@ const Home = ({fetchedCats, viewOrder}) => {
       `${baseURL}/images/search?limit=15&order=${viewOrder}&has_breeds=1&&_start=15`
     );
 
-    setPosts((value) => [...value, ...posts]);
-
-    return {
-      props: {
-        fetchedCats,
-      },
-    };
+    // updating useState values
+    setPosts((value) => [...value, ...fetchedCats]);
   };
 
   return (
@@ -109,11 +104,17 @@ const Home = ({fetchedCats, viewOrder}) => {
 
 export default Home;
 
-export async function getServerSideProps({params: {viewOrder}}) {
-  // checking
-  // console.log(
-  //   `${baseURL}/images/search?limit=15&order=${viewOrder}&has_breeds=1`
-  // );
+export async function getStaticPaths() {
+  return {
+    paths: [{params: {viewOrder: "ASC"}}, {params: {viewOrder: "DESC"}}],
+    fallback: false,
+  };
+}
+
+// staticProps function
+export async function getStaticProps(context) {
+  const {params} = context;
+  const viewOrder = params.viewOrder;
   const fetchedCats = await fetchAPI(
     `${baseURL}/images/search?limit=15&order=${viewOrder}&has_breeds=1`
   );

@@ -60,6 +60,12 @@ a {
   padding: 6px;
 }
 
+.loading-text{ 
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

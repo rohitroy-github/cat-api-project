@@ -20,16 +20,10 @@ const Home = ({fetchedCats}) => {
       `${baseURL}/images/search?limit=15&has_breeds=1&&_start=15`
     );
 
-    setPosts((value) => [...value, ...posts]);
-
-    return {
-      props: {
-        fetchedCats,
-      },
-    };
+    // updating usestate values
+    setPosts((value) => [...value, ...fetchedCats]);
   };
 
-  // variables for passing order parameters
   const ASC = "ASC";
   const DESC = "DESC";
 
@@ -74,6 +68,7 @@ const Home = ({fetchedCats}) => {
               textAlign="center"
               fontFamily="Montserrat"
               fontStyle="sans-serif"
+              // onClick={handleChangeInOrderView("ASC")}
             >
               Ascending
             </Button>
