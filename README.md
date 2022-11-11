@@ -9,7 +9,7 @@ API used in this project is <b><a href="https://thecatapi.com/">Cat API</a></b> 
 These are some <b>screenshots</b> from the project >>> 
 <br />
 <br />
-![Screenshot (186)](https://user-images.githubusercontent.com/68563695/201206382-04fa682a-635e-4b2a-9180-3a3b232abe44.png)
+![Screenshot (186)](https://user-images.githubusercontent.com/68563695/201259957-cdd9d7d0-6b23-4af2-9cac-00200dbcee7d.png)
 <br />
 <br />
 ![Screenshot (187)](https://user-images.githubusercontent.com/68563695/201206418-a1c105d9-7ec3-4582-9a28-6688607610a5.png)
